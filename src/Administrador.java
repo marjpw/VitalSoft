@@ -13,12 +13,12 @@ public class Administrador {
     private String psw;
     private String user;
 
-    public ArrayList<Paciente> paciente;
-    public ArrayList<Medico> medico;
+    public ArrayList<Paciente> pacientes;
+    public ArrayList<Medico> medicos;
 
     public Administrador(){
-        paciente = new ArrayList<>();
-        medico = new ArrayList<>();
+        pacientes = new ArrayList<>();
+        medicos = new ArrayList<>();
     }
 
     public boolean menuAdministrador(String user, String psw){
@@ -49,14 +49,15 @@ public class Administrador {
             try{
                 System.out.println("\n=====nMENU ADMINISTRADOR=====");
                 System.out.println("1. Registrar Paciente ");
-                System.out.println("2. Registrar Medico");
+                System.out.println("2. Registrar Médico");
                 System.out.println("3. Ver pacientes");
-                System.out.println("4. ver medicos ");
+                System.out.println("4. Ver médicos ");
+                System.out.println("5. Eliminar médicos");
                 System.out.println("0. Salir");
                 System.out.println("Ingrese una opcion: ");
                 opc= sc.nextInt();
                 sc.nextLine();
-                if (opc >= 0 || opc < 5) {
+                if (opc >= 0 || opc < 6) {
                     valido = true;
                 }
                 else {
@@ -82,7 +83,7 @@ public class Administrador {
         int userID = rand.nextInt(10000) + 10000;
 
         Paciente nuevoPaciente= new Paciente(dniP,nombreP,edadP, userID);
-        paciente.add(nuevoPaciente);
+        pacientes.add(nuevoPaciente);
     }
 
     public void registrarMedico(){
@@ -96,20 +97,50 @@ public class Administrador {
         int userID = rand.nextInt(10000) + 20000;
 
         Medico nuevoMedico = new Medico(nombreM,especialidad,dniM, userID);
-        medico.add(nuevoMedico);
+        medicos.add(nuevoMedico);
     }
 
     public void verPacientes(){
         System.out.println("Lista de pacientes: ");
-        for(Paciente p : paciente){
+        for(Paciente p : pacientes){
             System.out.println(p);
         }
     }
 
     public void verMedicos(){
         System.out.println("Lista de médicos: ");
-        for(Medico m : medico){
+        for(Medico m : medicos){
             System.out.println(m);
+        }
+    }
+
+    public void eliminarMedico(){
+        System.out.println("Ingrese la ID del médico que desea eliminar: ");
+        int idBuscado = sc.nextInt();
+        sc.nextLine();
+
+        Medico medicoEncontrado = null;
+        for(Medico m : medicos){
+            if(m.getUserID() == idBuscado){
+                medicoEncontrado = m;
+                break;
+            }
+        }
+        if(medicoEncontrado == null){
+            System.out.println("Error: No se encontró ningún médico con el id: " + idBuscado);
+            return;
+        }
+        System.out.print("Se encontró al siguiente médico: ");
+        System.out.println(medicoEncontrado);
+        System.out.println("¿Está seguro que desea eliminarlo? (s/n)");
+        String confirmacion = sc.nextLine().toUpperCase();
+
+        if(confirmacion.equals("S")){
+            medicos.remove(medicoEncontrado);
+            System.out.println("Médico eliminado exitosamente.");
+        }
+        else{
+            System.out.println("Operación cancelada.");
         }
     }
 }

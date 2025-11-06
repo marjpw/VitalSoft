@@ -42,6 +42,10 @@ public class Medico {
     public void setPsw(String psw) { this.psw = psw; }
     public String getPsw() { return psw; }
 
+    public String toString(){
+        return "Medico [DNI=" + dni + ", Nombre=" + nombre + ", Especialidad=" + especialidad + "]";
+    }
+
     public boolean menuMedico(String user, String psw){
         boolean running = true;
 
