@@ -13,6 +13,18 @@ public class Administrador {
     private String psw;
     private String user;
 
+    public void setNombre(String nombre) { this.nombre = nombre; }
+    public String getNombre() { return nombre; }
+
+    public void setDni(String dni) { this.dni = dni; }
+    public String getDni() { return dni; }
+
+    public void setPsw(String psw) { this.psw = psw; }
+    public String getPsw() { return psw; }
+
+    public void setUser(String user) { this.user = user; }
+    public String getUser() { return user; }
+
     public ArrayList<Paciente> pacientes;
     public ArrayList<Medico> medicos;
 
@@ -27,15 +39,13 @@ public class Administrador {
         while(running){
             int opc = showMenuAdministrador();
             if(opc == 0){
-                System.out.println("Cerrando VITALSOFT. ¡Hasta pronto!");
+                System.out.println("Cerrando sesión. ¡Hasta pronto!");
                 running = false;
             }
             else{
                 switch (opc){
-                    case 1: registrarPaciente(); break;
-                    case 2: registrarMedico(); break;
-                    case 3: verPacientes(); break;
-                    case 4: verMedicos(); break;
+                    case 1: if(gestionarPacientes()){ break; }
+                    case 2: if(gestionarMedicos()){ break; }
                 }
             }
         }
@@ -48,20 +58,17 @@ public class Administrador {
         do{
             try{
                 System.out.println("\n=====nMENU ADMINISTRADOR=====");
-                System.out.println("1. Registrar Paciente ");
-                System.out.println("2. Registrar Médico");
-                System.out.println("3. Ver pacientes");
-                System.out.println("4. Ver médicos ");
-                System.out.println("5. Eliminar médicos");
-                System.out.println("0. Salir");
+                System.out.println("1. Gestionar Pacientes");
+                System.out.println("2. Gestionar Medicos");
+                System.out.println("0. Cerrar sesión");
                 System.out.println("Ingrese una opcion: ");
                 opc= sc.nextInt();
                 sc.nextLine();
-                if (opc >= 0 || opc < 6) {
+                if (opc >= 0 || opc < 3) {
                     valido = true;
                 }
                 else {
-                    System.out.println("\n❌ Ingrese una opción válida (0-5).\n");
+                    System.out.println("\n❌ Ingrese una opción válida (0-2).\n");
                 }
 
             } catch (InputMismatchException e){
@@ -70,6 +77,65 @@ public class Administrador {
             }
         }while(!valido);
         return opc;
+    }
+
+    public boolean gestionarPacientes(){
+        boolean running = true;
+        int opc = -1;
+        while(running){
+            try{
+                System.out.println("Gestion de pacientes");
+                System.out.println("1. Registrar paciente");
+                System.out.println("2. Ver pacientes");
+                System.out.println("0. Salir");
+                opc = sc.nextInt();
+                sc.nextLine();
+                if(opc >= 0 || opc <= 2){
+                    switch (opc){
+                        case 1: registrarPaciente(); break;
+                        case 2: registrarMedico(); break;
+                        case 3: running = false; break;
+                    }
+                }
+                else{
+                    System.out.println("\n❌ Ingrese una opción válida (0-2).\n");
+                }
+            }catch(InputMismatchException e){
+                System.out.println("\n⚠️ Error: Solo se permiten números enteros.\n");
+                sc.nextLine();
+            }
+        }
+        return running;
+    }
+
+    public boolean gestionarMedicos(){
+        boolean running = true;
+        int opc = -1;
+        while(running){
+            try{
+                System.out.println("Gestion de médicos");
+                System.out.println("1. Registrar médico");
+                System.out.println("2. Ver médicos");
+                System.out.println("3. Eliminar médico");
+                System.out.println("0. Salir");
+                opc = sc.nextInt();
+                if(opc >= 0 || opc <= 3){
+                    switch (opc){
+                        case 1: registrarMedico(); break;
+                        case 2: verMedicos(); break;
+                        case 3: eliminarMedico(); break;
+                        case 4: running = false; break;
+                    }
+                }
+                else{
+                    System.out.println("\n❌ Ingrese una opción válida (0-3).\n");
+                }
+            }catch(InputMismatchException e){
+                System.out.println("\n⚠️ Error: Solo se permiten números enteros.\n");
+                sc.nextLine();
+            }
+        }
+        return running;
     }
 
     public void registrarPaciente(){

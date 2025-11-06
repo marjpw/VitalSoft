@@ -61,12 +61,9 @@ public class Main {
         String psw = sc.nextLine();
 
         switch (opc){
-            case 1:
-                if(patient.menuPaciente(user, psw)) { break; }
-            case 2:
-                if(!medic.menuMedico(user, psw)) { break; }
-            case 3:
-                if(!admin.menuAdministrador(user, psw)) { break; }
+            case 1: if(patient.menuPaciente(user, psw)) { break; }
+            case 2: if(!medic.menuMedico(user, psw)) { break; }
+            case 3: if(!admin.menuAdministrador(user, psw)) { break; }
         }
     }
 }
