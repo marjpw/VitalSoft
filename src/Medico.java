@@ -9,15 +9,6 @@ public class Medico {
     private String psw;
     private int userID;
 
-    public Medico(){
-
-    }
-
-    public Medico(int userID, String psw){
-        this.userID = userID;
-        this.psw = psw;
-    }
-
     public Medico(String nombre, String especialidad, String dni, int userID) {
         this.nombre = nombre;
         this.especialidad = especialidad;
@@ -46,14 +37,4 @@ public class Medico {
         return "Medico [DNI=" + dni + ", Nombre=" + nombre + ", Especialidad=" + especialidad + "]";
     }
 
-    public boolean menuMedico(String user, String psw){
-        boolean running = true;
-
-        return running;
-    }
-
-    public void showMenuMedico(String user, String psw){
-
-
-    }
 }

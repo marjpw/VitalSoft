@@ -3,12 +3,9 @@ import java.util.Scanner;
 
 public class Main {
     private static final Scanner sc = new Scanner(System.in);
+    private static final GestionClinica gestion = new GestionClinica();
 
-    private static Administrador admin = new Administrador();
-    private static Paciente patient = new Paciente();
-    private static Medico medic = new Medico();
-
-    public static void main(String[] args){
+    public static void main(){
         boolean running = true;
 
         while(running){
@@ -36,7 +33,7 @@ public class Main {
                 System.out.print("-> Ingrese una opción: ");
                 opc = sc.nextInt();
                 sc.nextLine();
-                if (opc > 0 || opc < 5) {
+                if (opc > 0 && opc < 5) {
                     valido = true;
                 }
                 else {
@@ -51,19 +48,41 @@ public class Main {
         return opc;
     }
 
-    public static void iniciarSesion(int opc){
-        String[] tipo = {"Iniciar sesión: Paciente", "Iniciar sesión: Médico", "Iniciar sesión: Administrador"};
-        System.out.println(tipo[opc-1]);
+    public static void iniciarSesion(int opc) {
+        String[] tipo = {"Paciente", "Médico", "Administrador"};
+        System.out.println("\n--- Iniciar sesión: " + tipo[opc - 1] + " ---");
 
         System.out.print("Usuario ID: ");
         String user = sc.nextLine();
         System.out.print("Contraseña: ");
         String psw = sc.nextLine();
 
-        switch (opc){
-            case 1: if(patient.menuPaciente(user, psw)) { break; }
-            case 2: if(!medic.menuMedico(user, psw)) { break; }
-            case 3: if(!admin.menuAdministrador(user, psw)) { break; }
+        switch (opc) {
+            case 1:
+                Paciente pacienteLogueado = gestion.autenticarPaciente(user, psw);
+                if (pacienteLogueado != null) {
+                    // Pasamos el control a una clase de UI, pasando el paciente autenticado
+                    Menu.mostrarMenuPaciente(pacienteLogueado, gestion);
+                } else {
+                    System.out.println("❌ Credenciales incorrectas.");
+                }
+                break;
+            case 2:
+                Medico medicoLogueado = gestion.autenticarMedico(user, psw);
+                if (medicoLogueado != null) {
+                    Menu.mostrarMenuMedico(medicoLogueado, gestion);
+                } else {
+                    System.out.println("❌ Credenciales incorrectas.");
+                }
+                break;
+            case 3:
+                Administrador adminLogueado = gestion.autenticarAdministrador(user, psw);
+                if (adminLogueado != null) {
+                    Menu.mostrarMenuAdministrador(adminLogueado, gestion);
+                } else {
+                    System.out.println("❌ Credenciales incorrectas.");
+                }
+                break;
         }
     }
 }
