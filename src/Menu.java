@@ -37,7 +37,7 @@ public class Menu {
             System.out.println("\n--- GESTIÓN DE PACIENTES ---");
             System.out.println("1. Registrar paciente");
             System.out.println("2. Ver lista de pacientes");
-            System.out.println("0. Volver al menú principal");
+            System.out.println("0. Salir");
             System.out.print("-> Ingrese una opción: ");
 
             int opc = leerOpcion("", 0, 2);
@@ -123,10 +123,102 @@ public class Menu {
     }
 
     public static void mostrarMenuPaciente(Paciente pacienteLogueado, GestionClinica gestion){
+        boolean running = true;
+        while (running) {
+            System.out.println("\n===== MENU PACIENTE =====");
+            System.out.println("Bienvenido, " + pacienteLogueado.getNombre());
+            System.out.println("1. Crear cita");
+            System.out.println("2. Ver historial de citas");
+            System.out.println("3. Cancelar cita");
+            System.out.println("4. Consultar diagnóstico");
+            System.out.println("5. Consultar factura");
+            System.out.println("0. Cerrar sesión");
+            System.out.print("-> Ingrese una opción: ");
+
+            int opc = leerOpcion("", 0, 5);
+
+            switch(opc){
+                case 1:
+                    crearCita();
+                    break;
+                case 2:
+                    verHistorialCitas();
+                    break;
+                case 3:
+                    cancelarCita();
+                    break;
+                case 4:
+                    consultarDiagnostico();
+                    break;
+                case 5:
+                    consultarFactura();
+                    break;
+                case 0:
+                    running = false;
+                    break;
+            }
+        }
+    }
+
+    public static void crearCita(){
+
+    }
+
+    public static void verHistorialCitas(){
+
+    }
+
+    public static void cancelarCita(){
+
+    }
+
+    public static void consultarDiagnostico(){
+
+    }
+
+    public static void consultarFactura(){
 
     }
 
     public static void mostrarMenuMedico(Medico medicoLogueado, GestionClinica gestion){
+            boolean running = true;
+            while (running) {
+                System.out.println("\n===== MENU MEDICO =====");
+                System.out.println("Bienvenido, " + medicoLogueado.getNombre());
+                System.out.println("1. Ver citas programadas");
+                System.out.println("2. Registrar diagnóstico");
+                System.out.println("3. Ver historial médico");
+                System.out.println("0. Cerrar sesión");
+                System.out.print("-> Ingrese una opción: ");
+
+                int opc = leerOpcion("", 0, 3);
+
+                switch (opc){
+                    case 1:
+                        verCitasProgramadas();
+                        break;
+                    case 2:
+                        registrarDiagnostico();
+                        break;
+                    case 3:
+                        verHistorialMedico();
+                        break;
+                    case 0:
+                        running = false;
+                        break;
+                }
+            }
+    }
+
+    public static void verCitasProgramadas(){
+
+    }
+
+    public static void registrarDiagnostico(){
+
+    }
+
+    public static void verHistorialMedico(){
 
     }
 
