@@ -139,19 +139,19 @@ public class Menu {
 
             switch(opc){
                 case 1:
-                    crearCita();
+                    crearCita(pacienteLogueado.getDni(), gestion);
                     break;
                 case 2:
-                    verHistorialCitas();
+                    gestion.verHistorialCitasPaciente(pacienteLogueado);
                     break;
                 case 3:
-                    cancelarCita();
+                    cancelarCita(pacienteLogueado, gestion);
                     break;
                 case 4:
-                    consultarDiagnostico();
+                    gestion.consultarDiagnostico(pacienteLogueado);
                     break;
                 case 5:
-                    consultarFactura();
+                    gestion.verFacturasDePaciente(pacienteLogueado);
                     break;
                 case 0:
                     running = false;
@@ -160,24 +160,33 @@ public class Menu {
         }
     }
 
-    public static void crearCita(){
-
+    public static void crearCita(String pacienteDNI, GestionClinica gestion){
+        System.out.println("\n--- CREAR CITA ---");
+        System.out.print("Ingrese motivo de la cita: ");
+        String nombre = sc.nextLine();
+        System.out.print("Ingrese DNI del Médico: ");
+        String dniMedico = sc.nextLine();
+        sc.nextLine(); // Limpiar buffer
+        String disponibilidad = horarioDisponible();
+        if(disponibilidad != null){
+            gestion.crearCita(nombre, pacienteDNI, dniMedico, disponibilidad);
+        }
+        else{
+            System.out.println("No es posible crear la cita.");
+        }
     }
 
-    public static void verHistorialCitas(){
-
+    public static String horarioDisponible(){
+        return "fecha";     // Falta añadir esta función
     }
 
-    public static void cancelarCita(){
+    public static void cancelarCita(Paciente pacienteLogueado, GestionClinica gestion){
+        System.out.println("\n--- CANCELAR CITA ---");
+        System.out.print("Ingrese el ID de la cita que desea cancelar: ");      // Previamente ha tenido que revisar las citas que posee
+        int idCita = sc.nextInt();
+        sc.nextLine();
 
-    }
-
-    public static void consultarDiagnostico(){
-
-    }
-
-    public static void consultarFactura(){
-
+        gestion.cancelarCita(idCita, pacienteLogueado);
     }
 
     public static void mostrarMenuMedico(Medico medicoLogueado, GestionClinica gestion){
@@ -195,13 +204,13 @@ public class Menu {
 
                 switch (opc){
                     case 1:
-                        verCitasProgramadas();
+                        gestion.verAgendaMedico(medicoLogueado);
                         break;
                     case 2:
-                        registrarDiagnostico();
+                        agregarDiagnostico(medicoLogueado, gestion);
                         break;
                     case 3:
-                        verHistorialMedico();
+                        verHistorialPaciente(medicoLogueado, gestion);
                         break;
                     case 0:
                         running = false;
@@ -210,16 +219,26 @@ public class Menu {
             }
     }
 
-    public static void verCitasProgramadas(){
+    private static void agregarDiagnostico(Medico medicoLogueado, GestionClinica gestion) {
+        System.out.println("\n--- AÑADIR DIAGNÓSTICO ---");
+        System.out.print("Ingrese el ID de la cita: ");
+        int idCita = sc.nextInt();
+        sc.nextLine(); // Limpiar buffer
+        System.out.print("Ingrese el diagnóstico: ");
+        String diagnostico = sc.nextLine();
 
+        gestion.agregarDiagnostico(idCita, diagnostico, medicoLogueado);
     }
 
-    public static void registrarDiagnostico(){
+    private static void verHistorialPaciente(Medico medicoLogueado, GestionClinica gestion) {
+        System.out.println("\n--- VER HISTORIAL DE UN PACIENTE ---");
+        // Primero, mostramos la lista de pacientes para que el médico sepa cuáles elegir
+        gestion.verListaDePacientesAtendidos(medicoLogueado);
 
-    }
+        System.out.print("\nIngrese el DNI del paciente cuyo historial desea ver: ");
+        String dniPaciente = sc.nextLine();
 
-    public static void verHistorialMedico(){
-
+        gestion.verHistorialMedicoDePaciente(dniPaciente, medicoLogueado);
     }
 
     private static int leerOpcion(String mensaje, int min, int max) {
