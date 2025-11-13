@@ -5,7 +5,7 @@ public class Main {
     private static final Scanner sc = new Scanner(System.in);
     private static final GestionClinica gestion = new GestionClinica();
 
-    public static void main(){
+    public static void main(String[] args) {
         boolean running = true;
 
         while(running){
