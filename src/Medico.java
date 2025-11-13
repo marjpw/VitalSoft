@@ -8,12 +8,21 @@ public class Medico {
     private String dni;
     private String psw;
     private int userID;
+    private double consultarPrecio;
 
     public Medico(String nombre, String especialidad, String dni, int userID) {
         this.nombre = nombre;
         this.especialidad = especialidad;
         this.dni= dni;
         this.userID = userID;
+    }
+
+    public Medico(String nombre, String especialidad, String dni, int userID, double consultarPrecio) {
+        this.nombre = nombre;
+        this.especialidad = especialidad;
+        this.dni= dni;
+        this.userID = userID;
+        this.consultarPrecio = consultarPrecio;
     }
 
     public void setNombre(String nombre) { this.nombre = nombre; }
@@ -32,6 +41,9 @@ public class Medico {
 
     public void setPsw(String psw) { this.psw = psw; }
     public String getPsw() { return psw; }
+
+    public double getConsultaPrecio() { return consultarPrecio; }
+    public void setConsultaPrecio(double consultaPrecio) { this.consultarPrecio = consultaPrecio; }
 
     public String toString(){
         return "Medico [DNI=" + dni + ", Nombre=" + nombre + ", Especialidad=" + especialidad + "]";

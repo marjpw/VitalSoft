@@ -4,6 +4,7 @@ public class Cita {
     private Medico medico;
     private String fecha;
     private String motivo;
+    private String diagnostico;
 
     public Cita(String motivo, Paciente paciente, Medico medico, String fecha, int id) {
         this.id = id;
@@ -12,6 +13,9 @@ public class Cita {
         this.fecha = fecha;
         this.motivo = motivo;
     }
+
+    public String getDiagnostico() { return diagnostico; }
+    public void setDiagnostico(String diagnostico) { this.diagnostico = diagnostico; }
 
     public void setMotivo(String motivo){ this.motivo = motivo; }
     public String getMotivo() { return motivo; }
@@ -39,7 +43,9 @@ public class Cita {
     }
 
     public String toString() {
+        String diagnosticoStr = (diagnostico == null || diagnostico.isEmpty()) ? "Pendiente" : diagnostico;
         return "Cita [ID=" + id + ", Paciente=" + paciente.getNombre() +
-                ", Medico=" + medico.getNombre() + ", Fecha=" + fecha + "]";
+                ", Medico=" + medico.getNombre() + ", Fecha=" + fecha +
+                ", Diagnóstico=" + diagnosticoStr + "]";
     }
 }
