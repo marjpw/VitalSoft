@@ -1,88 +1,89 @@
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
-    private static final Scanner sc = new Scanner(System.in);
-    private static final GestionClinica gestion = new GestionClinica();
-
     public static void main(String[] args) {
-        boolean running = true;
+        GestionClinica gestion = new GestionClinica();
+        Scanner sc = new Scanner(System.in);
+        boolean appRunning = true;
 
-        while(running){
-            int opc = menuPrincipal();
-            if(opc == 4){
-                System.out.println("Cerrando VITALSOFT. ¡Hasta pronto!");
-                running = false;
+        while (appRunning) {
+            // Menú principal limpio y profesional
+            System.out.println("\n=================================");
+            System.out.println("    SISTEMA CLÍNICO VITALSOFT    ");
+            System.out.println("=================================");
+            System.out.println("SELECCIONE SU ROL PARA INGRESAR:");
+            System.out.println("1. Ingresar como PACIENTE");
+            System.out.println("2. Ingresar como MÉDICO");
+            System.out.println("3. Ingresar como ADMINISTRADOR");
+            System.out.println("0. Salir del sistema");
+            System.out.println("---------------------------------");
+            System.out.print("-> Ingrese una opción: ");
+
+            try {
+                int op = Integer.parseInt(sc.nextLine());
+                switch (op) {
+                    case 1:
+                        // LOGIN PACIENTE
+                        System.out.println("\n--- ACCESO PACIENTES ---");
+                        System.out.print("Ingrese DNI: ");
+                        String uP = sc.nextLine();
+                        System.out.print("Ingrese Contraseña: ");
+                        String pP = sc.nextLine();
+
+                        Paciente pac = gestion.loginPaciente(uP, pP);
+                        if (pac != null) {
+                            System.out.println("Bienvenido/a " + pac.getNombre());
+                            Menu.menuPaciente(pac, gestion);
+                        } else
+                            System.out.println("❌ Credenciales incorrectas.");
+                        break;
+
+                    case 2:
+                        // LOGIN MÉDICO
+                        System.out.println("\n--- ACCESO MÉDICOS ---");
+                        System.out.print("Ingrese DNI: ");
+                        String uM = sc.nextLine();
+                        System.out.print("Ingrese Contraseña: ");
+                        String pM = sc.nextLine();
+
+                        Medico med = gestion.loginMedico(uM, pM);
+                        if (med != null) {
+                            System.out.println("Bienvenido Dr/a. " + med.getApellidos());
+                            Menu.menuMedico(med, gestion);
+                        } else
+                            System.out.println("❌ Credenciales incorrectas.");
+                        break;
+
+                    case 3:
+                        // LOGIN ADMINISTRADOR
+                        System.out.println("\n--- ACCESO ADMINISTRADOR ---");
+                        System.out.print("Usuario: ");
+                        String uA = sc.nextLine();
+                        System.out.print("Contraseña: ");
+                        String pA = sc.nextLine();
+
+                        // Aquí valida user: 111A y pass: admin123
+                        Administrador admin = gestion.loginAdmin(uA, pA);
+
+                        if (admin != null) {
+
+                            Menu.mostrarMenuAdministrador(admin, gestion);
+                        } else
+                            System.out.println("❌ Acceso denegado.");
+                        break;
+
+                    case 0:
+                        System.out.println("Cerrando VITALSOFT. ¡Hasta luego!");
+                        appRunning = false;
+                        break;
+
+                    default:
+                        System.out.println("Opción no válida. Intente de nuevo.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Por favor ingrese un número.");
             }
-            else { iniciarSesion(opc); }
         }
         sc.close();
-    }
-
-    public static int menuPrincipal(){
-        boolean valido = false;
-        int opc = -1;
-        do{
-            try{
-                System.out.print("\t\tVITALSOFT\n\n");
-                System.out.println("Iniciar Sesión - tipo de usuario");
-                System.out.println("1. Paciente");
-                System.out.println("2. Médico");
-                System.out.println("3. Administrador");
-                System.out.println("4. Salir");
-                System.out.print("-> Ingrese una opción: ");
-                opc = sc.nextInt();
-                sc.nextLine();
-                if (opc > 0 && opc < 5) {
-                    valido = true;
-                }
-                else {
-                    System.out.println("\n❌ Ingrese una opción válida (1-4).\n");
-                }
-
-            } catch(InputMismatchException e){
-                System.out.println("\n⚠️ Error: Solo se permiten números enteros.\n");
-                sc.nextLine();
-            }
-        }while(!valido);
-        return opc;
-    }
-
-    public static void iniciarSesion(int opc) {
-        String[] tipo = {"Paciente", "Médico", "Administrador"};
-        System.out.println("\n--- Iniciar sesión: " + tipo[opc - 1] + " ---");
-
-        System.out.print("Usuario ID: ");
-        String user = sc.nextLine();
-        System.out.print("Contraseña: ");
-        String psw = sc.nextLine();
-
-        switch (opc) {
-            case 1:
-                Paciente pacienteLogueado = gestion.autenticarPaciente(user, psw);
-                if (pacienteLogueado != null) {
-                    // Pasamos el control a una clase de UI, pasando el paciente autenticado
-                    Menu.mostrarMenuPaciente(pacienteLogueado, gestion);
-                } else {
-                    System.out.println("❌ Credenciales incorrectas.");
-                }
-                break;
-            case 2:
-                Medico medicoLogueado = gestion.autenticarMedico(user, psw);
-                if (medicoLogueado != null) {
-                    Menu.mostrarMenuMedico(medicoLogueado, gestion);
-                } else {
-                    System.out.println("❌ Credenciales incorrectas.");
-                }
-                break;
-            case 3:
-                Administrador adminLogueado = gestion.autenticarAdministrador(user, psw);
-                if (adminLogueado != null) {
-                    Menu.mostrarMenuAdministrador(adminLogueado, gestion);
-                } else {
-                    System.out.println("❌ Credenciales incorrectas.");
-                }
-                break;
-        }
     }
 }

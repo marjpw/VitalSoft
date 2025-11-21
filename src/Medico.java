@@ -1,52 +1,102 @@
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
 public class Medico {
-    public static final Scanner sc = new Scanner(System.in);
+    private static int contadorIds = 1; // ID autoincrementable
+
+    private int id;
     private String nombre;
+    private String apellidos;
     private String especialidad;
     private String dni;
+    private double precioConsulta;
     private String psw;
-    private int userID;
-    private double consultarPrecio;
 
-    public Medico(String nombre, String especialidad, String dni, int userID) {
+    private String diasAtencion; // Ej: "Lunes, Miercoles, Viernes"
+    private String horarioHora; // Ej: "09:00 - 13:00"
+
+    public Medico(String nombre, String apellidos, String especialidad, String dni, double precioConsulta,
+            String diasAtencion, String horarioHora, String psw) {
+        this.id = contadorIds++;
         this.nombre = nombre;
+        this.apellidos = apellidos;
         this.especialidad = especialidad;
-        this.dni= dni;
-        this.userID = userID;
+        this.dni = dni;
+        this.precioConsulta = precioConsulta;
+        this.diasAtencion = diasAtencion;
+        this.horarioHora = horarioHora;
+        this.psw = psw;
     }
 
-    public Medico(String nombre, String especialidad, String dni, int userID, double consultarPrecio) {
-        this.nombre = nombre;
-        this.especialidad = especialidad;
-        this.dni= dni;
-        this.userID = userID;
-        this.consultarPrecio = consultarPrecio;
+    // Getters y Setters
+    public int getId() {
+        return id;
     }
 
-    public void setNombre(String nombre) { this.nombre = nombre; }
-    public String getNombre(){ return nombre; }
+    public String getNombre() {
+        return nombre;
+    }
 
-    public void setEspecialidad(String especialidad) { this.especialidad = especialidad; }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
     public String getEspecialidad() {
         return especialidad;
     }
 
-    public void setDni(String dni) { this.dni = dni; }
-    public String getDni(){ return dni; }
-
-    public void setUserID(int userID) { this.userID = userID; }
-    public int getUserID() { return userID; }
-
-    public void setPsw(String psw) { this.psw = psw; }
-    public String getPsw() { return psw; }
-
-    public double getConsultaPrecio() { return consultarPrecio; }
-    public void setConsultaPrecio(double consultaPrecio) { this.consultarPrecio = consultaPrecio; }
-
-    public String toString(){
-        return "Medico [DNI=" + dni + ", Nombre=" + nombre + ", Especialidad=" + especialidad + "]";
+    public void setEspecialidad(String especialidad) {
+        this.especialidad = especialidad;
     }
 
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    public double getPrecioConsulta() {
+        return precioConsulta;
+    }
+
+    public void setPrecioConsulta(double precioConsulta) {
+        this.precioConsulta = precioConsulta;
+    }
+
+    public String getDiasAtencion() {
+        return diasAtencion;
+    }
+
+    public void setDiasAtencion(String diasAtencion) {
+        this.diasAtencion = diasAtencion;
+    }
+
+    public String getHorarioHora() {
+        return horarioHora;
+    }
+
+    public void setHorarioHora(String horarioHora) {
+        this.horarioHora = horarioHora;
+    }
+
+    public String getPsw() {
+        return psw;
+    }
+
+    public void setPsw(String psw) {
+        this.psw = psw;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Dr/a. %s %s | Esp: %s | Horario: %s (%s)",
+                nombre, apellidos, especialidad, diasAtencion, horarioHora);
+    }
 }
