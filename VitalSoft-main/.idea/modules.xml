@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/VitalSoft-.iml" filepath="$PROJECT_DIR$/.idea/VitalSoft-.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SistemaHospitalario.iml" filepath="$PROJECT_DIR$/SistemaHospitalario.iml" />
     </modules>
   </component>
 </project>
