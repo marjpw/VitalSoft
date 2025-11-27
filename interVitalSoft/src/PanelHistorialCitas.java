@@ -112,10 +112,10 @@ public class PanelHistorialCitas extends JPanel {
                     case PENDIENTE:
                         setBackground(new Color(243, 156, 18)); // Naranja
                         break;
-                    case ATENDIDO:
+                    case ATENDIDA:
                         setBackground(new Color(46, 204, 113)); // Verde Teal
                         break;
-                    case CANCELADO:
+                    case CANCELADA:
                         setBackground(new Color(231, 76, 60)); // Rojo
                         break;
                     default:

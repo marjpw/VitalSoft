@@ -339,9 +339,9 @@ public class CitaDAO {
         // Cargar estado
         String estadoStr = rs.getString("estado");
         if ("ATENDIDA".equals(estadoStr)) {
-            cita.setEstado(EstadoCita.ATENDIDO);
+            cita.setEstado(EstadoCita.ATENDIDA);
         } else if ("CANCELADA".equals(estadoStr)) {
-            cita.setEstado(EstadoCita.CANCELADO);
+            cita.setEstado(EstadoCita.CANCELADA);
         }
 
         // Cargar diagnóstico y receta

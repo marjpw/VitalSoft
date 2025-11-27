@@ -19,7 +19,7 @@ public class CitaService {
         for (Cita c : historial) {
             if (c.getMedico().getId() == medico.getId()
                     && c.getFecha().equals(fecha)
-                    && c.getEstado() != EstadoCita.CANCELADO) {
+                    && c.getEstado() != EstadoCita.CANCELADA) {
                 System.out.println("❌ Error: Ya tiene cita con este médico hoy.");
                 return;
             }
@@ -33,7 +33,7 @@ public class CitaService {
         Cita c = citaDAO.obtenerPorId(idCita);
         if (c != null && c.getPaciente().getId() == paciente.getId()) {
             if (c.puedeSerCancelada()) {
-                citaDAO.actualizarEstado(idCita, EstadoCita.CANCELADO);
+                citaDAO.actualizarEstado(idCita, EstadoCita.CANCELADA);
                 System.out.println("✅ Cita cancelada.");
             } else {
                 System.out.println("❌ Ya fue atendida o cancelada.");

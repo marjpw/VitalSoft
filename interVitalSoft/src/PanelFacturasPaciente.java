@@ -100,7 +100,7 @@ public class PanelFacturasPaciente extends JPanel {
 
         for (Cita c : historial) {
             // FILTRO: Solo mostramos si ya fue ATENDIDO
-            if (c.getEstado() == EstadoCita.ATENDIDO) {
+            if (c.getEstado() == EstadoCita.ATENDIDA) {
                 modelo.addRow(new Object[] {
                         c.getId(), c.getFecha(),
                         c.getMedico().getApellidos(),
