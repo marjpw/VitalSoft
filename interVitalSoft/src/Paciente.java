@@ -2,7 +2,7 @@ import java.time.LocalDate;
 import java.time.Period;
 
 public class Paciente {
-    // Contador estático para que el ID sea único y automático (1, 2, 3...)
+
     private static int contadorIds = 1;
 
     private int id;
@@ -12,9 +12,8 @@ public class Paciente {
     private String celular;
     private LocalDate fechaNacimiento;
     private String alergias;
-    private String psw; // Contraseña
+    private String psw;
 
-    // Atributos de triaje (AGREGADOS para que guarde los datos del IMC)
     private String imc;
     private String categoriaIMC;
 
@@ -30,14 +29,12 @@ public class Paciente {
         this.psw = psw;
     }
 
-    // Calcula la edad exacta basándose en la fecha de hoy
     public int getEdad() {
         if (fechaNacimiento == null)
             return 0;
         return Period.between(fechaNacimiento, LocalDate.now()).getYears();
     }
 
-    // Getters y Setters
     public int getId() {
         return id;
     }
@@ -50,14 +47,13 @@ public class Paciente {
         this.nombre = nombre;
     }
 
-    // --- ESTOS SON LOS NUEVOS MÉTODOS DE COMPATIBILIDAD ---
     public String getApellidos() {
         return apellidos;
     }
 
     public String getApellido() {
         return apellidos;
-    } // Alias singular para evitar errores
+    }
 
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
@@ -77,7 +73,7 @@ public class Paciente {
 
     public String getTelefono() {
         return celular;
-    } // Alias para evitar errores
+    }
 
     public void setCelular(String celular) {
         this.celular = celular;
@@ -107,7 +103,6 @@ public class Paciente {
         this.psw = psw;
     }
 
-    // Getters y Setters para IMC (Agregados según tu solicitud anterior)
     public String getImc() {
         return imc;
     }
@@ -124,7 +119,6 @@ public class Paciente {
         this.categoriaIMC = categoriaIMC;
     }
 
-    // Método de autenticación (encapsulación de lógica)
     public boolean autenticar(String psw) {
         return this.psw != null && this.psw.equals(psw);
     }

@@ -18,7 +18,7 @@ public class Cita {
     private double talla;
     private double temperatura;
     private String presionArterial;
-    private boolean triajeRealizado; // Para saber si ya pasó por enfermería
+    private boolean triajeRealizado;
 
     private int numeroTurno;
     private EstadoCita estado;

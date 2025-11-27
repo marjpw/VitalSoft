@@ -15,7 +15,7 @@ public class PanelTriaje extends PanelFondoImagen {
 
     private JComboBox<Cita> cmbCitasPendientes;
     private JTextField txtPeso, txtTalla, txtPresion, txtTemperatura;
-    private JTextField txtIMC, txtCategoria; // Campos automáticos
+    private JTextField txtIMC, txtCategoria;
     private JLabel lblMensaje;
 
     public PanelTriaje(MainFrame mainFrame, ServiceManager services, Administrador admin) {
@@ -48,13 +48,11 @@ public class PanelTriaje extends PanelFondoImagen {
         tarjeta.add(crearLabel("Seleccionar Paciente (Pendiente):"), configGbc(0, 1));
         cmbCitasPendientes = new JComboBox<>();
         cargarCitasPendientes();
-        // Hacemos que ocupe 2 columnas para que se vea bien el nombre
+
         GridBagConstraints gbcCombo = configGbc(0, 2);
         gbcCombo.gridwidth = 2;
         tarjeta.add(cmbCitasPendientes, gbcCombo);
 
-        // --- SECCIÓN SIGNOS VITALES ---
-        // Separador visual
         JLabel lblSub = new JLabel("Registro de Signos Vitales");
         lblSub.setFont(new Font("SansSerif", Font.BOLD, 14));
         GridBagConstraints gbcSub = configGbc(0, 3);
@@ -62,7 +60,6 @@ public class PanelTriaje extends PanelFondoImagen {
         gbcSub.insets = new Insets(20, 15, 10, 15);
         tarjeta.add(lblSub, gbcSub);
 
-        // COLUMNA IZQUIERDA (Inputs)
         tarjeta.add(crearLabel("Peso (Kg):"), configGbc(0, 4));
         txtPeso = crearInput();
         tarjeta.add(txtPeso, configGbc(0, 5));
@@ -75,13 +72,10 @@ public class PanelTriaje extends PanelFondoImagen {
         txtPresion = crearInput();
         tarjeta.add(txtPresion, configGbc(0, 9));
 
-        // (Extra: Temperatura, necesario para el backend aunque no salga en tu boceto,
-        // lo pongo discreto)
         tarjeta.add(crearLabel("Temperatura (°C):"), configGbc(0, 10));
         txtTemperatura = crearInput();
         tarjeta.add(txtTemperatura, configGbc(0, 11));
 
-        // COLUMNA DERECHA (Calculados)
         tarjeta.add(crearLabel("IMC (Automático):"), configGbc(1, 4));
         txtIMC = crearInput();
         txtIMC.setEditable(false);
@@ -92,7 +86,7 @@ public class PanelTriaje extends PanelFondoImagen {
         txtCategoria = crearInput();
         txtCategoria.setEditable(false);
         txtCategoria.setBackground(new Color(240, 240, 240));
-        txtCategoria.setFont(new Font("SansSerif", Font.BOLD, 12)); // Negrita para resaltar
+        txtCategoria.setFont(new Font("SansSerif", Font.BOLD, 12));
         tarjeta.add(txtCategoria, configGbc(1, 7));
 
         // --- LÓGICA DE CÁLCULO EN TIEMPO REAL ---
@@ -142,7 +136,7 @@ public class PanelTriaje extends PanelFondoImagen {
         }
         btnRegresar.addActionListener(e -> {
             mainFrame.getContentPane().removeAll();
-            mainFrame.mostrarPanelAdmin(admin); // Volver al Admin
+            mainFrame.mostrarPanelAdmin(admin);
         });
 
         GridBagConstraints gbcFloat = new GridBagConstraints();
@@ -155,13 +149,11 @@ public class PanelTriaje extends PanelFondoImagen {
         add(btnRegresar, gbcFloat);
     }
 
-    // --- LÓGICA ---
-
     private void cargarCitasPendientes() {
         cmbCitasPendientes.removeAllItems();
         List<Cita> pendientes = services.getCitaService().getCitasPendientesTriaje();
         for (Cita c : pendientes) {
-            cmbCitasPendientes.addItem(c); // El toString() de Cita mostrará el nombre
+            cmbCitasPendientes.addItem(c);
         }
         if (pendientes.isEmpty()) {
             lblMensaje.setText("No hay pacientes esperando triaje.");
@@ -214,7 +206,7 @@ public class PanelTriaje extends PanelFondoImagen {
                 txtCategoria.setText("");
             }
         } catch (NumberFormatException ex) {
-            // Ignorar errores mientras escribe
+
         }
     }
 
@@ -234,19 +226,17 @@ public class PanelTriaje extends PanelFondoImagen {
             if (presion.isEmpty())
                 throw new Exception();
 
-            // Guardamos usando el método que ya existe en GestionClinica
             services.getCitaService().registrarTriaje(citaSel.getId(), peso, talla, temp, presion);
 
             mostrarMensaje("✅ Triaje realizado correctamente", new Color(200, 230, 201), new Color(27, 94, 32));
 
-            // Limpiar y recargar
             txtPeso.setText("");
             txtTalla.setText("");
             txtPresion.setText("");
             txtTemperatura.setText("");
             txtIMC.setText("");
             txtCategoria.setText("");
-            cargarCitasPendientes(); // Quitar al paciente de la lista porque ya se atendió
+            cargarCitasPendientes();
 
         } catch (Exception e) {
             mostrarMensaje("⚠️ Verifique los datos numéricos.", new Color(255, 235, 238), Color.RED);

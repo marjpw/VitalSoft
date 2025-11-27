@@ -191,12 +191,12 @@ public class PanelCrearCita extends PanelFondoImagen {
         LocalDate fechaCita = LocalDate.of(anio, mes, dia);
 
         if (fechaCita.isBefore(LocalDate.now())) {
-            mostrarMensaje("❌ La fecha no puede ser pasada.", new Color(255, 235, 238), Color.RED);
+            mostrarMensaje("La fecha no puede ser pasada.", new Color(255, 235, 238), Color.RED);
             return;
         }
 
         services.getCitaService().crearCita(paciente, medico, fechaCita, motivo);
-        mostrarMensaje("✅ Cita Creada Correctamente", new Color(200, 230, 201), new Color(27, 94, 32));
+        mostrarMensaje(" Cita Creada Correctamente", new Color(200, 230, 201), new Color(27, 94, 32));
         txtMotivo.setText("");
     }
 

@@ -1,5 +1,5 @@
 public class Administrador {
-
+    // este es el bueno 26/11 5am
     private String nombre;
     private String dni;
     private String psw;

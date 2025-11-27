@@ -42,7 +42,7 @@ public class Factura {
         sb.append("      RUC: 20555123456  -  LIMA, PERÚ    \n");
         sb.append("==========================================\n");
         sb.append("Nro Ticket:    F001-" + id + "\n");
-        sb.append("Ref. Atención: Cita #" + cita.getId() + "\n"); // <--- ESTO AGREGA EL REALISMO
+        sb.append("Ref. Atención: Cita #" + cita.getId() + "\n");
         sb.append("Fecha Emisión: " + fechaEmision.format(fmt) + "\n");
         sb.append("------------------------------------------\n");
         sb.append("PACIENTE:\n");

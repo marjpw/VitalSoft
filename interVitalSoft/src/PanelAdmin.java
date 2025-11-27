@@ -16,7 +16,6 @@ public class PanelAdmin extends JPanel {
         this.services = services;
         this.admin = admin;
 
-        // Cargar imagen de fondo (reusamos la del doctor)
         try {
             imagenFondo = new ImageIcon(getClass().getResource("/img/fondo_doctor.jpg")).getImage();
         } catch (Exception e) {
@@ -27,17 +26,17 @@ public class PanelAdmin extends JPanel {
 
         // --- 1. TITULO (Parte Izquierda) ---
         JLabel lblTitulo = new JLabel("<html>PANEL<br>ADMINISTRADOR</html>");
-        lblTitulo.setFont(new Font("SansSerif", Font.BOLD, 48));
+        lblTitulo.setFont(new Font("Century Gothic", Font.BOLD, 40));
         lblTitulo.setForeground(Color.WHITE);
 
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.weightx = 0.4; // Ocupa el 40% del ancho
+        gbc.weightx = 0.4;
         gbc.weighty = 1.0;
         gbc.anchor = GridBagConstraints.CENTER;
         add(lblTitulo, gbc);
 
-        // --- 2. GRID DE BOTONES (Parte Derecha) ---
+        // --- 2. GRID DE BOTONES
         JPanel panelBotones = new JPanel(new GridLayout(3, 2, 20, 20)); // 3 filas, 2 columnas, espacio de 20px
         panelBotones.setOpaque(false); // Transparente para ver el fondo
 
@@ -60,17 +59,11 @@ public class PanelAdmin extends JPanel {
         });
 
         // Botón 3: Eliminar Médico
-        BotonRedondo btnEliminar = crearBotonMenu("Eliminar Médico", Estilos.NARANJA_PACIENTE, "/img/icono_basura.png");
+        BotonRedondo btnEliminar = crearBotonMenu("Gestionar Médicos", Estilos.NARANJA_PACIENTE,
+                "/img/icono_basura.png");
         btnEliminar.addActionListener(e -> {
-            String idStr = JOptionPane.showInputDialog("Ingrese ID del Médico a eliminar:");
-            if (idStr != null) {
-                try {
-                    services.getMedicoService().eliminarMedico(Integer.parseInt(idStr));
-                    JOptionPane.showMessageDialog(this, "Proceso finalizado.");
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(this, "ID inválido");
-                }
-            }
+            // Esto abre tu nueva tabla con botones
+            mainFrame.mostrarPanelGestionMedicos();
         });
 
         // Botón 4: Ver Médicos/Pacientes
@@ -96,7 +89,10 @@ public class PanelAdmin extends JPanel {
 
         // Botón 6: Caja
         BotonRedondo btnCaja = crearBotonMenu("CAJA (Cobrar)", Estilos.TURQUESA_ADMIN, "/img/icono_caja.png");
-        btnCaja.addActionListener(e -> JOptionPane.showMessageDialog(this, "Aquí se abre la Caja"));
+        btnCaja.addActionListener(e -> {
+            // CONEXIÓN NUEVA
+            mainFrame.mostrarPanelCaja(admin);
+        });
 
         // Agregamos botones al panel internoo
         panelBotones.add(btnRegMed);
@@ -158,7 +154,7 @@ public class PanelAdmin extends JPanel {
         }
 
         Graphics2D g2 = (Graphics2D) g;
-        g2.setColor(new Color(0, 0, 0, 180)); // Negro semi-transparente
+        g2.setColor(new Color(0, 0, 0, 180));
         g2.fillRect(0, 0, w, h);
     }
 }

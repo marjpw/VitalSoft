@@ -39,6 +39,24 @@ public class MedicoService {
         System.out.println("✅ Médico registrado correctamente.");
     }
 
+    public void actualizarMedico(int id, String nombre, String apellido, String esp, String dni, double precio,
+            String dias, String horas, String psw) {
+        for (Medico m : listaMedicos) {
+            if (m.getId() == id) {
+                m.setNombre(nombre);
+                m.setApellidos(apellido);
+                m.setEspecialidad(esp);
+                m.setDni(dni);
+                m.setPrecioConsulta(precio);
+                m.setDiasAtencion(dias);
+                m.setHorarioHora(horas);
+                m.setPsw(psw);
+                System.out.println("✅ Datos del médico actualizados.");
+                return;
+            }
+        }
+    }
+
     public void eliminarMedico(int idMedico) {
         // Validar que no tenga citas pendientes
         if (citaService != null && citaService.tieneCitasPendientes(idMedico)) {

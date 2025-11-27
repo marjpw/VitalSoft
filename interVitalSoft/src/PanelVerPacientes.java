@@ -21,11 +21,8 @@ public class PanelVerPacientes extends JPanel {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
 
-        // --- MÁRGENES (AQUÍ ESTÁ EL CAMBIO) ---
-        // Top: 20, Left: 60, Bottom: 20, Right: 60
         setBorder(BorderFactory.createEmptyBorder(20, 60, 20, 60));
 
-        // --- Título ---
         JPanel panelNorte = new JPanel(new FlowLayout(FlowLayout.CENTER));
         panelNorte.setBackground(Color.WHITE);
         JLabel titulo = new JLabel("Pacientes Registrados");
@@ -33,7 +30,6 @@ public class PanelVerPacientes extends JPanel {
         panelNorte.add(titulo);
         add(panelNorte, BorderLayout.NORTH);
 
-        // --- Tabla ---
         String[] columnas = { "ID", "DNI", "Nombre", "Apellido", "Celular", "Edad", "Alergias" };
         modelo = new DefaultTableModel(columnas, 0);
         tabla = new JTable(modelo);
@@ -65,7 +61,6 @@ public class PanelVerPacientes extends JPanel {
 
         add(panelSur, BorderLayout.SOUTH);
 
-        // --- Lógica ---
         cargarDatosTabla();
 
         btnAnterior.addActionListener(e -> {

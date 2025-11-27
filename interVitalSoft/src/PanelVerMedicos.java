@@ -22,15 +22,13 @@ public class PanelVerMedicos extends JPanel {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
 
-        // --- MÁRGENES (AQUÍ ESTÁ EL CAMBIO) ---
-        // Top: 20, Left: 60, Bottom: 20, Right: 60 (aprox 2 cm a los lados)
         setBorder(BorderFactory.createEmptyBorder(20, 60, 20, 60));
 
         // --- Título ---
         JPanel panelNorte = new JPanel(new FlowLayout(FlowLayout.CENTER));
         panelNorte.setBackground(Color.WHITE);
         JLabel titulo = new JLabel("Médicos Registrados");
-        titulo.setFont(new Font("Arial", Font.BOLD, 28));
+        titulo.setFont(new Font("Century Gothic", Font.BOLD, 28));
         panelNorte.add(titulo);
         add(panelNorte, BorderLayout.NORTH);
 
@@ -40,7 +38,7 @@ public class PanelVerMedicos extends JPanel {
         modelo = new DefaultTableModel(columnas, 0);
         tabla = new JTable(modelo);
         tabla.setRowHeight(40); // Filas más altas
-        tabla.getTableHeader().setFont(new Font("Arial", Font.BOLD, 14));
+        tabla.getTableHeader().setFont(new Font("Century Gothic", Font.BOLD, 14));
 
         JScrollPane scrollPane = new JScrollPane(tabla);
         add(scrollPane, BorderLayout.CENTER);
@@ -52,7 +50,7 @@ public class PanelVerMedicos extends JPanel {
         btnAnterior = new JButton("Anterior");
         lblPagina = new JLabel("  1  ");
         lblPagina.setOpaque(true);
-        lblPagina.setBackground(new Color(90, 200, 210)); // Color temático médico
+        lblPagina.setBackground(new Color(90, 200, 210));
         lblPagina.setForeground(Color.WHITE);
         btnSiguiente = new JButton("Siguiente");
 
@@ -62,7 +60,7 @@ public class PanelVerMedicos extends JPanel {
         panelSur.add(btnAnterior);
         panelSur.add(lblPagina);
         panelSur.add(btnSiguiente);
-        panelSur.add(Box.createHorizontalStrut(30)); // Espacio separador
+        panelSur.add(Box.createHorizontalStrut(30));
         panelSur.add(btnRegresar);
 
         add(panelSur, BorderLayout.SOUTH);

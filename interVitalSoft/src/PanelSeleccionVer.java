@@ -24,7 +24,7 @@ public class PanelSeleccionVer extends JPanel {
 
         // --- 1. TÍTULO ---
         JLabel lblTitulo = new JLabel("SELECCIONE REGISTRO A VISUALIZAR");
-        lblTitulo.setFont(new Font("Arial", Font.BOLD, 30));
+        lblTitulo.setFont(new Font("Century Gothic", Font.BOLD, 30));
         lblTitulo.setForeground(Color.WHITE);
 
         gbc.gridx = 0;
@@ -62,7 +62,7 @@ public class PanelSeleccionVer extends JPanel {
 
         // --- 3. BOTÓN REGRESAR (Esquina inferior derecha) ---
         JButton btnRegresar = new JButton("Regresar");
-        btnRegresar.setFont(new Font("Arial", Font.BOLD, 14));
+        btnRegresar.setFont(new Font("Century Gothic", Font.BOLD, 14));
         btnRegresar.setBackground(Color.WHITE);
         btnRegresar.setForeground(Color.BLACK);
         btnRegresar.setFocusPainted(false);
@@ -87,7 +87,7 @@ public class PanelSeleccionVer extends JPanel {
 
     private JButton crearBotonGrande(String texto, String rutaIcono, Color colorFondo) {
         JButton btn = new JButton(texto);
-        btn.setFont(new Font("Arial", Font.BOLD, 18));
+        btn.setFont(new Font("Century Gothic", Font.BOLD, 18));
         btn.setBackground(colorFondo);
         btn.setForeground(Color.WHITE);
         btn.setFocusPainted(false);
@@ -116,11 +116,5 @@ public class PanelSeleccionVer extends JPanel {
             g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
         }
 
-        // Filtro oscuro opcional para mejorar lectura (descomentar si es necesario)
-        /*
-         * Graphics2D g2 = (Graphics2D) g;
-         * g2.setColor(new Color(0, 0, 0, 40));
-         * g2.fillRect(0, 0, getWidth(), getHeight());
-         */
     }
 }

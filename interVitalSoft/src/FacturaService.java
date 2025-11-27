@@ -53,6 +53,16 @@ public class FacturaService {
         }
     }
 
+    // --- AGREGAR ESTO AL FINAL DE FacturaService.java ---
+
+    public double calcularTotalRecaudado() {
+        double total = 0;
+        for (Factura f : facturas) {
+            total += f.getTotal();
+        }
+        return total;
+    }
+
     public boolean citaYaFacturada(int idCita) {
         for (Factura f : facturas) {
             if (f.getCitaAsociada().getId() == idCita) {

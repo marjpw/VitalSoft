@@ -3,11 +3,8 @@ import java.awt.*;
 
 public class PanelPaciente extends JPanel {
 
-    @SuppressWarnings("unused")
     private MainFrame mainFrame;
-    @SuppressWarnings("unused")
-    private ServiceManager services;
-    @SuppressWarnings("unused")
+    private ServiceManager services; // CAMBIO: Usamos ServiceManager
     private Paciente paciente;
     private Image imagenFondo;
 
@@ -25,7 +22,7 @@ public class PanelPaciente extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
 
         JLabel lblTitulo = new JLabel("<html>PANEL<br>PACIENTE</html>");
-        lblTitulo.setFont(new Font("SansSerif", Font.BOLD, 48));
+        lblTitulo.setFont(new Font("Century Gothic", Font.BOLD, 48));
         lblTitulo.setForeground(Color.WHITE);
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -39,38 +36,39 @@ public class PanelPaciente extends JPanel {
 
         BotonRedondo btnNuevaCita = crearBotonMenu("Cita Nueva", Estilos.TURQUESA_ADMIN, "/img/icono_mas_paciente.png");
         btnNuevaCita.addActionListener(e -> {
-            mainFrame.getContentPane().removeAll();
-            mainFrame.add(new PanelCrearCita(mainFrame, services, paciente));
-            mainFrame.revalidate();
-            mainFrame.repaint();
+            try {
+                mainFrame.getContentPane().removeAll();
+                // Pasamos 'services' en vez de 'gestion'
+                mainFrame.add(new PanelCrearCita(mainFrame, services, paciente));
+                mainFrame.revalidate();
+                mainFrame.repaint();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Error al abrir PanelCrearCita: Verifique el constructor.");
+            }
         });
 
+        // Botón Facturas
         BotonRedondo btnFacturas = crearBotonMenu("Facturas", Estilos.VERDE_MEDICO, "/img/icono_caja.png");
         btnFacturas.addActionListener(e -> {
-            System.out.println("--- TUS FACTURAS ---");
-            services.getPacienteService().verFacturasDePaciente(paciente);
-            JOptionPane.showMessageDialog(this, "Revisa la consola para ver tus facturas.");
+
+            mainFrame.mostrarPanelFacturasPaciente(paciente);
         });
 
         BotonRedondo btnHistorial = crearBotonMenu("Historial", Estilos.NARANJA_PACIENTE, "/img/icono_buscar.png");
         btnHistorial.addActionListener(e -> {
-            System.out.println("--- TU HISTORIAL ---");
-            for (Cita c : services.getPacienteService().getHistorialPaciente(paciente.getId()))
-                System.out.println(c);
-            JOptionPane.showMessageDialog(this, "Historial enviado a consola.");
+            mainFrame.mostrarPanelHistorialCitas(paciente);
         });
 
         BotonRedondo btnDiagnosticos = crearBotonMenu("Diagnósticos", Estilos.TURQUESA_ADMIN, "/img/icono_triaje.png");
         btnDiagnosticos.addActionListener(e -> {
-            services.getPacienteService().consultarDiagnostico(paciente);
-            JOptionPane.showMessageDialog(this, "Diagnósticos enviados a consola.");
+
+            mainFrame.mostrarPanelDiagnosticosPaciente(paciente);
         });
 
         BotonRedondo btnCancelar = crearBotonMenu("Cancelar Cita", Estilos.VERDE_MEDICO, "/img/icono_basura.png");
         btnCancelar.addActionListener(e -> {
-            String id = JOptionPane.showInputDialog("ID de cita a cancelar:");
-            if (id != null)
-                services.getCitaService().cancelarCita(Integer.parseInt(id), paciente);
+
+            mainFrame.mostrarPanelCancelarCitas(paciente);
         });
 
         panelBotones.add(btnNuevaCita);
@@ -78,7 +76,7 @@ public class PanelPaciente extends JPanel {
         panelBotones.add(btnHistorial);
         panelBotones.add(btnDiagnosticos);
         panelBotones.add(btnCancelar);
-        panelBotones.add(new JLabel(""));
+        panelBotones.add(new JLabel("")); // Espacio vacío original
 
         gbc.gridx = 1;
         gbc.weightx = 0.6;
@@ -86,6 +84,7 @@ public class PanelPaciente extends JPanel {
         gbc.insets = new Insets(50, 20, 50, 50);
         add(panelBotones, gbc);
 
+        // --- 3. SALIR (IGUAL) ---
         JButton btnSalir = new JButton("Cerrar Sesión");
         btnSalir.setBackground(Color.WHITE);
         btnSalir.setForeground(new Color(220, 53, 69));

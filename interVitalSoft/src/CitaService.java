@@ -3,20 +3,17 @@ import java.util.List;
 
 public class CitaService {
     private ArrayList<Cita> citas;
-    // Referencia a FacturaService se inyectará después de la construcción
     private FacturaService facturaService;
 
     public CitaService() {
         this.citas = new ArrayList<>();
     }
 
-    // Método para inyectar dependencia (evita referencia circular en constructor)
     public void setFacturaService(FacturaService facturaService) {
         this.facturaService = facturaService;
     }
 
     public void crearCita(Paciente paciente, Medico medico, java.time.LocalDate fecha, String motivo) {
-        // Validar que no tenga cita duplicada con el mismo médico en la misma fecha
         for (Cita c : citas) {
             if (c.getPaciente().getId() == paciente.getId()
                     && c.getMedico().getId() == medico.getId()
@@ -153,5 +150,32 @@ public class CitaService {
             }
         }
         return null;
+    }
+
+    public List<Cita> getHistorialMedico(int idMedico) {
+        List<Cita> lista = new ArrayList<>();
+        for (Cita c : citas) {
+            if (c.getMedico().getId() == idMedico) {
+                lista.add(c);
+            }
+        }
+        return lista;
+    }
+
+    public java.util.List<Paciente> getPacientesDeMedico(int idMedico) {
+        java.util.Set<Integer> idsProcesados = new java.util.HashSet<>();
+        java.util.List<Paciente> listaPacientes = new java.util.ArrayList<>();
+
+        for (Cita c : citas) {
+            // Si la cita es de este médico y no hemos procesado a este paciente antes
+            if (c.getMedico().getId() == idMedico) {
+                int idPac = c.getPaciente().getId();
+                if (!idsProcesados.contains(idPac)) {
+                    idsProcesados.add(idPac);
+                    listaPacientes.add(c.getPaciente());
+                }
+            }
+        }
+        return listaPacientes;
     }
 }
