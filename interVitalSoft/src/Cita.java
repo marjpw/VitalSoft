@@ -1,7 +1,6 @@
 import java.time.LocalDate;
 
 public class Cita {
-    private static int contadorIds = 1;
 
     private int id;
     private Paciente paciente;
@@ -24,7 +23,6 @@ public class Cita {
     private EstadoCita estado;
 
     public Cita(Paciente paciente, Medico medico, LocalDate fecha, String motivo, int numeroTurno) {
-        this.id = contadorIds++;
         this.paciente = paciente;
         this.medico = medico;
         this.fecha = fecha;
@@ -65,6 +63,10 @@ public class Cita {
     // --- Getters y Setters ---
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Paciente getPaciente() {

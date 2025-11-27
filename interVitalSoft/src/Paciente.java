@@ -3,8 +3,6 @@ import java.time.Period;
 
 public class Paciente {
 
-    private static int contadorIds = 1;
-
     private int id;
     private String nombre;
     private String apellidos;
@@ -19,7 +17,6 @@ public class Paciente {
 
     public Paciente(String nombre, String apellidos, String dni, String celular, LocalDate fechaNacimiento,
             String alergias, String psw) {
-        this.id = contadorIds++;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.dni = dni;
@@ -37,6 +34,10 @@ public class Paciente {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombre() {

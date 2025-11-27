@@ -96,15 +96,12 @@ public class PanelHistorialClinico extends JPanel {
         List<Cita> historial = services.getCitaService().getHistorialPaciente(paciente.getId());
 
         for (Cita c : historial) {
-            // --- CAMBIO CLAVE: SOLO MOSTRAR SI ESTÁ ATENDIDO ---
-            if (c.getEstado() == EstadoCita.ATENDIDO) {
-                modelo.addRow(new Object[] {
-                        c.getId(), c.getFecha(),
-                        c.getMedico().getApellidos(),
-                        c.getMedico().getEspecialidad(),
-                        c.getMotivo(), ""
-                });
-            }
+            modelo.addRow(new Object[] {
+                    c.getId(), c.getFecha(),
+                    c.getMedico().getApellidos(),
+                    c.getMedico().getEspecialidad(),
+                    c.getMotivo(), ""
+            });
         }
     }
 

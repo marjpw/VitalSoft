@@ -3,12 +3,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PacienteService {
-    private ArrayList<Paciente> listaPacientes;
+    private PacienteDAO pacienteDAO;
     private CitaService citaService;
     private FacturaService facturaService;
 
     public PacienteService() {
-        this.listaPacientes = new ArrayList<>();
+        this.pacienteDAO = new PacienteDAO();
     }
 
     // Métodos para inyectar dependencias
@@ -21,29 +21,24 @@ public class PacienteService {
     }
 
     public Paciente loginPaciente(String dni, String psw) {
-        for (Paciente p : listaPacientes) {
-            if (p.getDni().equals(dni) && p.autenticar(psw)) {
-                return p;
-            }
-        }
-        return null;
+        return pacienteDAO.login(dni, psw);
     }
 
     public void registrarPaciente(String nombre, String apellido, String dni, String cel,
             LocalDate nac, String alergias, String psw) {
         Paciente nuevo = new Paciente(nombre, apellido, dni, cel, nac, alergias, psw);
-        listaPacientes.add(nuevo);
-        System.out.println("✅ Paciente registrado con ID: " + nuevo.getId());
+        pacienteDAO.insertar(nuevo);
     }
 
     public void verPacientes() {
-        for (Paciente p : listaPacientes) {
+        List<Paciente> pacientes = pacienteDAO.obtenerTodos();
+        for (Paciente p : pacientes) {
             System.out.println(p);
         }
     }
 
     public ArrayList<Paciente> getListaPacientes() {
-        return listaPacientes;
+        return new ArrayList<>(pacienteDAO.obtenerTodos());
     }
 
     public List<Cita> getHistorialPaciente(int idPaciente) {

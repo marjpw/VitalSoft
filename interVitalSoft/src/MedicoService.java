@@ -1,22 +1,13 @@
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class MedicoService {
-    private ArrayList<Medico> listaMedicos;
+    private MedicoDAO medicoDAO;
     private CitaService citaService;
 
     public MedicoService() {
-        this.listaMedicos = new ArrayList<>();
-        // Datos semilla: médicos iniciales
-        listaMedicos.add(new Medico("Juan", "Perez", "Cardiologia", "10101010", 80.00,
-                "Lunes, Miercoles", "09:00-13:00", "1234"));
-        listaMedicos.add(new Medico("Maria", "Lopez", "Pediatria", "20202020", 60.00,
-                "Martes, Jueves", "15:00-19:00", "1234"));
-        listaMedicos.add(new Medico("Carlos", "Ruiz", "Dermatologia", "30303030", 70.00,
-                "Viernes", "10:00-14:00", "1234"));
+        this.medicoDAO = new MedicoDAO();
     }
 
     // Método para inyectar dependencia
@@ -25,34 +16,32 @@ public class MedicoService {
     }
 
     public Medico loginMedico(String dni, String psw) {
-        for (Medico m : listaMedicos) {
-            if (m.getDni().equals(dni) && m.autenticar(psw)) {
-                return m;
-            }
-        }
-        return null;
+        return medicoDAO.login(dni, psw);
     }
 
     public void registrarMedico(String nombre, String apellido, String esp, String dni,
             double precio, String dias, String horas, String psw) {
-        listaMedicos.add(new Medico(nombre, apellido, esp, dni, precio, dias, horas, psw));
-        System.out.println("✅ Médico registrado correctamente.");
+        Medico nuevo = new Medico(nombre, apellido, esp, dni, precio, dias, horas, psw);
+        if (medicoDAO.insertar(nuevo)) {
+            System.out.println("✅ Médico registrado correctamente.");
+        }
     }
 
     public void actualizarMedico(int id, String nombre, String apellido, String esp, String dni, double precio,
             String dias, String horas, String psw) {
-        for (Medico m : listaMedicos) {
-            if (m.getId() == id) {
-                m.setNombre(nombre);
-                m.setApellidos(apellido);
-                m.setEspecialidad(esp);
-                m.setDni(dni);
-                m.setPrecioConsulta(precio);
-                m.setDiasAtencion(dias);
-                m.setHorarioHora(horas);
-                m.setPsw(psw);
+        Medico medico = medicoDAO.obtenerPorId(id);
+        if (medico != null) {
+            medico.setNombre(nombre);
+            medico.setApellidos(apellido);
+            medico.setEspecialidad(esp);
+            medico.setDni(dni);
+            medico.setPrecioConsulta(precio);
+            medico.setDiasAtencion(dias);
+            medico.setHorarioHora(horas);
+            medico.setPsw(psw);
+
+            if (medicoDAO.actualizar(medico)) {
                 System.out.println("✅ Datos del médico actualizados.");
-                return;
             }
         }
     }
@@ -64,31 +53,27 @@ public class MedicoService {
             return;
         }
 
-        listaMedicos.removeIf(m -> m.getId() == idMedico);
-        System.out.println("✅ Operación realizada.");
+        if (medicoDAO.eliminar(idMedico)) {
+            System.out.println("✅ Operación realizada.");
+        }
     }
 
     public void verMedicos() {
-        for (Medico m : listaMedicos) {
+        List<Medico> medicos = medicoDAO.obtenerTodos();
+        for (Medico m : medicos) {
             System.out.println(m);
         }
     }
 
     public ArrayList<Medico> getListaMedicos() {
-        return listaMedicos;
+        return new ArrayList<>(medicoDAO.obtenerTodos());
     }
 
     public Set<String> obtenerEspecialidades() {
-        Set<String> especialidades = new HashSet<>();
-        for (Medico m : listaMedicos) {
-            especialidades.add(m.getEspecialidad());
-        }
-        return especialidades;
+        return medicoDAO.obtenerEspecialidades();
     }
 
     public List<Medico> obtenerMedicosPorEspecialidad(String especialidad) {
-        return listaMedicos.stream()
-                .filter(m -> m.atiendeEspecialidad(especialidad))
-                .collect(Collectors.toList());
+        return medicoDAO.obtenerPorEspecialidad(especialidad);
     }
 }

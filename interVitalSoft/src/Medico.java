@@ -1,5 +1,4 @@
 public class Medico {
-    private static int contadorIds = 1; // ID autoincrementable
 
     private int id;
     private String nombre;
@@ -14,7 +13,6 @@ public class Medico {
 
     public Medico(String nombre, String apellidos, String especialidad, String dni, double precioConsulta,
             String diasAtencion, String horarioHora, String psw) {
-        this.id = contadorIds++;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.especialidad = especialidad;
@@ -28,6 +26,10 @@ public class Medico {
     // Getters y Setters
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombre() {
