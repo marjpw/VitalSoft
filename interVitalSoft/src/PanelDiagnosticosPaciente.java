@@ -97,7 +97,7 @@ public class PanelDiagnosticosPaciente extends JPanel {
 
         for (Cita c : historial) {
             // FILTRO: Solo ATENDIDOS (porque son Diagnósticos)
-            if (c.getEstado() == EstadoCita.ATENDIDO) {
+            if (c.getEstado() == EstadoCita.ATENDIDA) {
                 modelo.addRow(new Object[] {
                         c.getId(),
                         c.getFecha(),

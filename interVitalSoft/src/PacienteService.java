@@ -54,7 +54,7 @@ public class PacienteService {
         System.out.println("\n--- HISTORIAL CLÍNICO ---");
 
         for (Cita c : hist) {
-            if (c.getEstado() == EstadoCita.ATENDIDO) {
+            if (c.getEstado() == EstadoCita.ATENDIDA) {
                 System.out.println("FECHA: " + c.getFecha() + " | DR: " + c.getMedico().getApellidos());
                 System.out.println(">> Signos Vitales: T " + c.getTemperatura() + "°C | P " + c.getPeso() + "kg");
                 System.out.println(">> Diagnóstico: " + c.getDiagnostico());

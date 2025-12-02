@@ -93,9 +93,9 @@ public class PanelAgendaMedico extends JPanel {
                 mostrar = true;
             else if (filtro.equals("Pendientes") && c.getEstado() == EstadoCita.PENDIENTE)
                 mostrar = true;
-            else if (filtro.equals("Atendidas") && c.getEstado() == EstadoCita.ATENDIDO)
+            else if (filtro.equals("Atendidas") && c.getEstado() == EstadoCita.ATENDIDA)
                 mostrar = true;
-            else if (filtro.equals("Canceladas") && c.getEstado() == EstadoCita.CANCELADO)
+            else if (filtro.equals("Canceladas") && c.getEstado() == EstadoCita.CANCELADA)
                 mostrar = true;
 
             if (mostrar) {
@@ -123,7 +123,7 @@ public class PanelAgendaMedico extends JPanel {
                 setText(e.toString());
                 if (e == EstadoCita.PENDIENTE)
                     setBackground(new Color(243, 156, 18));
-                else if (e == EstadoCita.ATENDIDO)
+                else if (e == EstadoCita.ATENDIDA)
                     setBackground(new Color(46, 204, 113));
                 else
                     setBackground(new Color(231, 76, 60));

@@ -83,7 +83,7 @@ CREATE TABLE citas (
     fecha DATE NOT NULL,
     motivo TEXT NOT NULL,
     numero_turno INT NOT NULL,
-    estado ENUM('PENDIENTE', 'ATENDIDA', 'CANCELADA') DEFAULT 'PENDIENTE',
+    estado ENUM('PENDIENTE', 'ATENDIDA', 'CANCELADA', 'NO_ASISTIO') DEFAULT 'PENDIENTE',
     
     -- Datos clínicos
     diagnostico TEXT,
