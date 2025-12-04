@@ -29,7 +29,7 @@ public class DatabaseConnection {
                 properties.setProperty("db.url",
                         "jdbc:mysql://localhost:3306/vitalsoft_db?useSSL=false&serverTimezone=UTC");
                 properties.setProperty("db.username", "root");
-                properties.setProperty("db.password", "root");
+                properties.setProperty("db.password", "SQLseyer166");
                 properties.setProperty("db.driver", "com.mysql.cj.jdbc.Driver");
             }
 

@@ -29,10 +29,10 @@ public class PanelHistorialCitas extends JPanel {
         panelCentro.setBackground(Color.WHITE);
         panelCentro.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 
-        String[] columnas = { "ID", "Estado", "Fecha", "Médico", "Especialidad", "Acción" };
+        String[] columnas = { "ID", "Estado", "Fecha", "Médico", "Especialidad" };
         modelo = new DefaultTableModel(columnas, 0) {
             public boolean isCellEditable(int row, int column) {
-                return column == 5; // Solo la columna de acción es editable
+                return false; // No hay columnas editables
             }
         };
 
@@ -46,14 +46,9 @@ public class PanelHistorialCitas extends JPanel {
         tabla.getColumnModel().getColumn(2).setPreferredWidth(100);
         tabla.getColumnModel().getColumn(3).setPreferredWidth(200); // Médico Ancho
         tabla.getColumnModel().getColumn(4).setPreferredWidth(150);
-        tabla.getColumnModel().getColumn(5).setPreferredWidth(120); // Acción
 
         // Renderizador de ESTADO (Colores)
         tabla.getColumnModel().getColumn(1).setCellRenderer(new EstadoRenderer());
-
-        // Botón Ver Detalle
-        tabla.getColumnModel().getColumn(5).setCellRenderer(new ButtonRenderer());
-        tabla.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(new JCheckBox()));
 
         JScrollPane scroll = new JScrollPane(tabla);
         panelCentro.add(scroll, BorderLayout.CENTER);
@@ -86,8 +81,7 @@ public class PanelHistorialCitas extends JPanel {
                     c.getEstado(), // Pasamos el objeto Enum, el Renderizador se encarga del color
                     c.getFecha().toString(),
                     c.getMedico().getNombre() + " " + c.getMedico().getApellido(),
-                    c.getMedico().getEspecialidad(),
-                    "" // Columna de acción (botón)
+                    c.getMedico().getEspecialidad()
             };
             modelo.addRow(fila);
         }
@@ -123,57 +117,6 @@ public class PanelHistorialCitas extends JPanel {
                 }
             }
             return this;
-        }
-    }
-
-    class ButtonRenderer extends JButton implements TableCellRenderer {
-        public ButtonRenderer() {
-            setOpaque(true);
-            setBackground(new Color(52, 152, 219)); // Azul
-            setForeground(Color.WHITE);
-            setText("Ver Detalle");
-            setFont(new Font("Arial", Font.BOLD, 12));
-        }
-
-        public Component getTableCellRendererComponent(JTable t, Object v, boolean isS, boolean hasF, int r, int c) {
-            return this;
-        }
-    }
-
-    class ButtonEditor extends DefaultCellEditor {
-        private JButton button;
-        private int fila;
-
-        public ButtonEditor(JCheckBox cb) {
-            super(cb);
-            button = new JButton("Ver Detalle");
-            button.setBackground(new Color(52, 152, 219));
-            button.setForeground(Color.WHITE);
-            button.setFont(new Font("Arial", Font.BOLD, 12));
-            button.addActionListener(e -> {
-                fireEditingStopped();
-                verDetalleCita(fila);
-            });
-        }
-
-        public Component getTableCellEditorComponent(JTable t, Object v, boolean isS, int r, int c) {
-            fila = r;
-            return button;
-        }
-
-        public Object getCellEditorValue() {
-            return "Ver Detalle";
-        }
-    }
-
-    private void verDetalleCita(int fila) {
-        int idCita = (int) modelo.getValueAt(fila, 0);
-        Cita cita = services.getCitaService().getCitaPorId(idCita);
-        if (cita != null) {
-            // Necesitamos obtener el médico de la cita para pasarlo al panel de detalle
-            mainFrame.mostrarPanelDetalleLectura(cita.getMedico(), cita);
-        } else {
-            JOptionPane.showMessageDialog(this, "No se pudo cargar la cita", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
