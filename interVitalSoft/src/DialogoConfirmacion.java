@@ -26,8 +26,8 @@ public class DialogoConfirmacion extends JDialog {
         btnPanel.setBackground(Color.WHITE);
 
         // CAMBIO: Botón "No" ahora es VERDE
-        JButton btnNo = new JButton("NO");
-        btnNo.setBackground(new Color(46, 204, 113)); // Verde Esmeralda
+        JButton btnNo = new JButton("Cancelar ");
+        btnNo.setBackground(new Color(163, 163, 163));
         btnNo.setForeground(Color.WHITE);
         btnNo.setFocusPainted(false);
         btnNo.addActionListener(e -> {
@@ -35,8 +35,8 @@ public class DialogoConfirmacion extends JDialog {
             dispose();
         });
 
-        JButton btnSi = new JButton("SÍ");
-        btnSi.setBackground(new Color(255, 100, 100));
+        JButton btnSi = new JButton("Eliminar");
+        btnSi.setBackground(new Color(171, 67, 67));
         btnSi.setForeground(Color.WHITE);
         btnSi.setFocusPainted(false);
         btnSi.addActionListener(e -> {

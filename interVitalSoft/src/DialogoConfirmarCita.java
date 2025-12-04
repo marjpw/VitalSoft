@@ -32,7 +32,7 @@ public class DialogoConfirmarCita extends JDialog {
 
         // Botón NO (Verde)
         JButton btnNo = new JButton("No");
-        btnNo.setBackground(new Color(72, 201, 176)); // Verde Turquesa
+        btnNo.setBackground(new Color(163, 163, 163));
         btnNo.setForeground(Color.WHITE);
         btnNo.setFocusPainted(false);
         btnNo.setPreferredSize(new Dimension(100, 35));
@@ -42,8 +42,8 @@ public class DialogoConfirmarCita extends JDialog {
         });
 
         // Botón SÍ (Rojo)
-        JButton btnSi = new JButton("Sí");
-        btnSi.setBackground(new Color(255, 99, 71)); // Rojo Tomate
+        JButton btnSi = new JButton("Cancelar");
+        btnSi.setBackground(new Color(171, 67, 67));
         btnSi.setForeground(Color.WHITE);
         btnSi.setFocusPainted(false);
         btnSi.setPreferredSize(new Dimension(100, 35));

@@ -370,7 +370,7 @@ public class CitaDAO {
      * Mapea un ResultSet simple a un objeto Paciente
      */
     private Paciente mapearPacienteSimple(ResultSet rs) throws SQLException {
-        return new Paciente(
+        Paciente paciente = new Paciente(
                 rs.getString("nombre"),
                 rs.getString("apellidos"),
                 rs.getString("dni"),
@@ -378,5 +378,7 @@ public class CitaDAO {
                 rs.getDate("fecha_nacimiento").toLocalDate(),
                 rs.getString("alergias"),
                 rs.getString("password"));
+        paciente.setId(rs.getInt("id")); // IMPORTANTE: Establecer ID de BD
+        return paciente;
     }
 }
