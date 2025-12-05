@@ -74,7 +74,7 @@ public class PanelDetalleDiagnostico extends JPanel {
         tarjeta.add(panelIMC, cImc);
 
         // --- DIAGNÓSTICO ---
-        agregarSeccion(tarjeta, "No se como llamar esta seccion", 8); // Título según tu imagen
+        agregarSeccion(tarjeta, "Resultados", 8);
         agregarCampo(tarjeta, "Diagnóstico:", cita.getDiagnostico(), 0, 9);
         agregarCampo(tarjeta, "Receta:", cita.getReceta(), 1, 9);
 
